@@ -14,6 +14,10 @@ while True:
     # Prompt the user for the Turkish translation of the sentence
     tr_translation = input('Enter the Turkish translation of the sentence: ')
 
+    # Initialize the 'en' key with an empty dictionary if it does not exist
+    if 'en' not in translations:
+        translations['en'] = {}
+
     # Add the new translation to the dictionary
     translations['en'][en_sentence] = tr_translation
 
