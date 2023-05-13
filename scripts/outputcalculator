@@ -1,0 +1,36 @@
+if __name__ == "__main__":
+    import math
+    
+    # User inputs
+    tower_height = 175 # meters
+    tower_diameter = 15 # meters
+    collector_diameter = 250 # meters
+    solar_irradiance = 600 # W/m^2
+    ground_temperature = 30.1 # C
+    
+    # Constants
+    alpha = 0.7 # soil absorbance factor
+    tau = 0.7 # glass transmittance factor
+    b = 5.67e-8 # Stefan-Boltzmann constant
+    rho = 1.2 # density of air at 25 C and 1 atm pressure
+    c_sub_p = 1005 # specific heat of air at constant pressure
+    k = 0.65 # discharge coefficient for the opening
+    g = 9.81 # gravitational acceleration
+    
+    # Calculations
+    A = math.pi * (collector_diameter / 2)**2
+    Q = k * A * math.sqrt(2 * g * tower_height * (ground_temperature + 273.15)) / (ground_temperature + 273.15)
+    delta_T = solar_irradiance * alpha * tau / (b * math.pi * tower_diameter**2 / 4) + ground_temperature - 273.15
+    T_sub_1 = ground_temperature + 273.15
+    T_sub_2 = T_sub_1 + delta_T
+    v_air = Q / (math.pi * (tower_diameter / 2)**2)
+    power_output = c_sub_p * rho * Q * delta_T / 1e6 # in MW
+    energy_output = power_output * 24 # in MWh
+    
+    # Output
+    print(f"Air velocity: {v_air:.2f} m/s")
+    print(f"Air flow rate: {Q:.2f} m^3/s")
+    print(f"Tower temperature: {T_sub_2:.2f} C")
+    print(f"Power output: {power_output:.2f} MW")
+    print(f"Energy output: {energy_output:.2f} MWh")
+    
